@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.pms.module.PR_Facility_Content.mapper.PrFacilityContentMapper">
+    <resultMap id="BaseResultMap" type="com.slk.pms.module.PR_Facility_Content.po.PrFacilityContent" >
+        <id column="fid" property="fid" jdbcType="INTEGER" />
+        <result column="facility_type_fid" property="facility_type_fid" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="slk_area_fid" property="slk_area_fid" jdbcType="INTEGER" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="modify_UserFid" property="modify_UserFid" jdbcType="INTEGER" />
+        <result column="modifyName" property="modifyName" jdbcType="VARCHAR" />
+        <result column="modifyRole" property="modifyRole" jdbcType="VARCHAR" />
+        <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <!--添加操作-->
+    <insert id="insertPrFacilityContentInfo" useGeneratedKeys="true" keyProperty="fid" parameterType="com.slk.pms.module.PR_Facility_Content.po.PrFacilityContent">
+        INSERT INTO pr_facility_content
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fid != null" >fid,</if>
+            <if test="facility_type_fid != null" >facility_type_fid,</if>
+            <if test="name != null" >name,</if>
+            <if test="slk_area_fid != null" >slk_area_fid,</if>
+            <if test="remark != null" >remark,</if>
+            <if test="modify_userfid != null" >modify_userfid,</if>
+            <if test="modifyname != null" >modifyname,</if>
+            <if test="modifyrole != null" >modifyrole,</if>
+            <if test="modifydate != null" >modifydate,</if>
+        </trim>
+        <trim prefix="SELECT " suffix=" " suffixOverrides=",">
+            <if test="fid != null" >#{fid},</if>
+            <if test="facility_type_fid != null" >#{facility_type_fid},</if>
+            <if test="name != null" >#{name},</if>
+            <if test="slk_area_fid != null" >#{slk_area_fid},</if>
+            <if test="remark != null" >#{remark},</if>
+            <if test="modify_userfid != null" >#{modify_userfid},</if>
+            <if test="modifyname != null" >#{modifyname},</if>
+            <if test="modifyrole != null" >#{modifyrole},</if>
+            <if test="modifydate != null" >#{modifydate},</if>
+        </trim>
+        FROM DUAL WHERE NOT EXISTS
+        (SELECT `name` FROM pr_facility_content
+        WHERE facility_type_fid = #{facility_type_fid}
+        AND slk_area_fid = #{slk_area_fid}
+        AND `name` = #{name}
+        )
+    </insert>
+
+    <!--根据主键删除信息-->
+    <delete id="deleteFacilityContentByfid">
+        DELETE FROM pr_facility_content WHERE fid = #{fid}
+        AND (SELECT COUNT(*) FROM pr_facility b WHERE b.facility_content_fid = #{fid})=0
+    </delete>
+
+    <!--修改操作-->
+    <update id="updatePrFacilityContentByKey">
+        UPDATE pr_facility_content
+        <set>
+            <if test="fid != null" >fid=#{fid},</if>
+            <if test="facility_type_fid != null" >facility_type_fid=#{facility_type_fid},</if>
+            <if test="name != null" >name=#{name},</if>
+            <if test="slk_area_fid != null" >slk_area_fid=#{slk_area_fid},</if>
+            <if test="remark != null" >remark=#{remark},</if>
+            <if test="modify_userfid != null" >modify_userfid=#{modify_userfid},</if>
+            <if test="modifyname != null" >modifyname=#{modifyname},</if>
+            <if test="modifyrole != null" >modifyrole=#{modifyrole},</if>
+            <if test="modifydate != null" >modifydate=#{modifydate},</if>
+        </set>
+        WHERE fid = #{fid} AND
+        ( SELECT a.`name` FROM
+        ( SELECT p.* FROM pr_facility_type p
+        WHERE facility_type_fid = #{facility_type_fid}
+        AND p.slk_area_fid = #{slk_area_fid}
+        AND p.`name` = #{name}
+        AND p.fid != #{fid}) AS a
+        ) is null
+    </update>
+
+    <!--根据userId获取信息-->
+    <select id="selectFacilityContentAll"
+            resultType="com.slk.pms.module.PR_Facility_Content.po.PrFacilityContentExtend">
+        SELECT
+            fc.*,
+            ft.`name` AS typeName
+        FROM
+            `pr_facility_content` fc
+            LEFT JOIN pr_facility_type ft ON ft.fid = fc.facility_type_fid
+            LEFT JOIN capital.slk_user u ON FIND_IN_SET( fc.slk_area_fid, u.area_Ids )
+        WHERE
+            ( u.id = #{userfid} OR 1 = #{userfid} )
+        GROUP BY fc.fid
+        ORDER BY fc.fid DESC;
+    </select>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.projectrun.module.PR_Facility_Content.mapper.PrFacilityContentMapper">
+    <resultMap id="BaseResultMap" type="com.slk.projectrun.module.PR_Facility_Content.po.PrFacilityContent" >
+        <id column="fid" property="fid" jdbcType="INTEGER" />
+        <result column="facility_type_fid" property="facility_type_fid" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="slk_area_fid" property="slk_area_fid" jdbcType="INTEGER" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="modify_UserFid" property="modify_UserFid" jdbcType="INTEGER" />
+        <result column="modifyName" property="modifyName" jdbcType="VARCHAR" />
+        <result column="modifyRole" property="modifyRole" jdbcType="VARCHAR" />
+        <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.pms.module.PMS_Dpinfo.mapper.PmsDpinfoMapper">
+    <resultMap id="BaseResultMap" type="com.slk.pms.module.PMS_Dpinfo.po.PmsDpinfo" >
+        <id column="fid" property="fid" jdbcType="INTEGER" />
+        <result column="slk_area_fid" property="slk_area_fid" jdbcType="INTEGER" />
+        <result column="slk_project_fid" property="slk_project_fid" jdbcType="INTEGER" />
+        <result column="pms_building_fid" property="pms_building_fid" jdbcType="INTEGER" />
+        <result column="pms_floor_fid" property="pms_floor_fid" jdbcType="INTEGER" />
+        <result column="pms_area_fid" property="pms_area_fid" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="qrcode" property="qrcode" jdbcType="VARCHAR" />
+        <result column="coordinate" property="coordinate" jdbcType="LONGVARCHAR" />
+        <result column="depict" property="depict" jdbcType="VARCHAR" />
+        <result column="modify_userFid" property="modify_userFid" jdbcType="INTEGER" />
+        <result column="modifyname" property="modifyname" jdbcType="VARCHAR" />
+        <result column="modifydate" property="modifydate" jdbcType="TIMESTAMP" />
+    </resultMap>
+</mapper>

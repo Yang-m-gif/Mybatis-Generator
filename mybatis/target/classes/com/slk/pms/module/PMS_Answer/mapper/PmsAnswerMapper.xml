@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slk.pms.module.PMS_Answer.mapper.PmsAnswerMapper">
+    <resultMap id="BaseResultMap" type="com.slk.pms.module.PMS_Answer.po.PmsAnswer" >
+        <id column="fid" property="fid" jdbcType="INTEGER" />
+        <result column="question_fid" property="question_fid" jdbcType="INTEGER" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="ward_fid" property="ward_fid" jdbcType="INTEGER" />
+        <result column="customer_name" property="customer_name" jdbcType="VARCHAR" />
+        <result column="hospitalid" property="hospitalid" jdbcType="LOGNVARCHAR" />
+        <result column="modify_userFid" property="modify_userFid" jdbcType="INTEGER" />
+        <result column="modifyname" property="modifyname" jdbcType="VARCHAR" />
+        <result column="modifyrole" property="modifyrole" jdbcType="VARCHAR" />
+        <result column="modifydate" property="modifydate" jdbcType="TIMESTAMP" />
+    </resultMap>
+</mapper>
